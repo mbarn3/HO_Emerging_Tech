@@ -109,7 +109,7 @@ const sketch1 = ( s ) => {
         s.graphPlotting(waiting,57, 61, 63, 1);
         s.timeline();
         s.events();
-        s.fullScreenButton();
+        //s.fullScreenButton();
 
 
     s.textSize(w/50);
