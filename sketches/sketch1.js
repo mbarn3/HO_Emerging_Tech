@@ -45,8 +45,9 @@ const sketch1 = ( s ) => {
     s.setup = async function() {
 
         let smallestSize = s.min(s.windowWidth,s.windowHeight);
-        s.createCanvas(smallestSize/1.1, smallestSize/1.8);
-        
+        s.createCanvas(smallestSize/1.1, smallestSize/1.1);
+        //s.createCanvas(smallestSize, smallestSize);
+
         w = s.width;
         h = s.height;
 
@@ -425,30 +426,30 @@ const sketch1 = ( s ) => {
         }
     }
 
-    s.fullScreen = function(){
-        s.resizeCanvas(s.windowWidth, s.windowHeight)
-        w = s.width
-        h = s.height
-    }
+    // s.fullScreen = function(){
+    //     s.resizeCanvas(s.windowWidth, s.windowHeight)
+    //     w = s.width
+    //     h = s.height
+    // }
 
-    s.fullScreenButton = function(){
-        let x = w -w/18
-        let y = h-w/18
-        let Rw = (w/25)
+    // s.fullScreenButton = function(){
+    //     let x = w -w/18
+    //     let y = h-w/18
+    //     let Rw = (w/25)
         
-        s.fill(22, 73, 110)
-        s.rect(x,y,Rw);
+    //     s.fill(22, 73, 110)
+    //     s.rect(x,y,Rw);
 
-        if(
-            s.mouseX >= x &&
-            s.mouseX <= x+Rw &&
-            s.mouseY >= y &&
-            s.mouseY <= y+Rw &&
-            s.mouseIsPressed)
-        {
-            s.fullScreen()
-        }
-    }
+    //     if(
+    //         s.mouseX >= x &&
+    //         s.mouseX <= x+Rw &&
+    //         s.mouseY >= y &&
+    //         s.mouseY <= y+Rw &&
+    //         s.mouseIsPressed)
+    //     {
+    //         s.fullScreen()
+    //     }
+    // }
 
     // $gunmetal: rgba(57, 61, 63, 1);
     // $silver: rgba(22, 73, 110, 1);
