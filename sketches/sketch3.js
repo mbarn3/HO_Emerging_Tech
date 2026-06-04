@@ -12,7 +12,7 @@ const sketch3 = (s) => {
         smallestSize = s.min(w,h);
         
         s.createCanvas(smallestSize/1.1,smallestSize/1.8);
-        add = 4700 - (s.width-s.height)*2;
+        add = 7000 - (s.width-s.height)*2;
 
         s.textAlign(s.CENTER, s.CENTER);
 

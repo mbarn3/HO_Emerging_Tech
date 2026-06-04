@@ -158,6 +158,8 @@ const sketch7 = (s) => {
 
     let scaleFactor;
 
+    let started = false;
+
 
     s.setup = async function () {
 
@@ -226,6 +228,8 @@ const sketch7 = (s) => {
         s.rect(canvasWidthDividedBySeven / 2 - 10, canvasHeightDividedByNine * 2 - 10, w, canvasHeightDividedByNine * 2 + 20);
     }
 
+
+
     s.drawEvent = function (t, colourBox) {
 
         let animationControl = (s.millis() - t.startTime) / 1200;
@@ -258,6 +262,12 @@ const sketch7 = (s) => {
 
 
     s.startTimer = function () {
+
+        if (started){
+            return;
+        }
+
+        started= true;
 
         console.log('start');
 

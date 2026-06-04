@@ -23,6 +23,7 @@ const sketch1 = ( s ) => {
     let yearsAsylum;
     let claims;
     let dataLengthAsylum;
+    let header;
 
     let totalsAsylum = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
     let biggestClaims = 0;
@@ -40,7 +41,9 @@ const sketch1 = ( s ) => {
     let monthString;
     let dayString;
 
-    let press = false
+    let press = false;
+
+    let yLevel = false;
 
     s.setup = async function() {
 
@@ -81,6 +84,7 @@ const sketch1 = ( s ) => {
         withdrawals = asylum.getColumn("Withdrawals");
         waiting = asylum.getColumn("People awaiting an initial decision");
         dataLengthAsylum = asylum.getColumn("Date").length;
+        //header = asylum.getRow(0);
 
         //store earliest and most recent years and convert them to numbers (rather than strings)
         for(i=0; i < dataLength; i++){
@@ -102,11 +106,11 @@ const sketch1 = ( s ) => {
         s.textFont(myFont);
         s.timelineSpacing();
         s.graph();
-        s.graphPlotting(claims,255, 204, 0);
-        s.graphPlotting(decisions,22, 73, 110);
-        s.graphPlotting(grants,9, 144, 198);
-        s.graphPlotting(refusals,22, 73, 110);
-        s.graphPlotting(waiting,57, 61, 63, 1);
+        s.graphPlotting(claims,255, 204, 0, "Claims");
+        s.graphPlotting(decisions,22, 73, 110, "Decisions");
+        s.graphPlotting(grants,9, 144, 198, "Grants");
+        s.graphPlotting(refusals,54, 102, 138, "Refusals");
+        s.graphPlotting(waiting,57, 61, 63, "Waiting");
         s.timeline();
         s.events();
         //s.fullScreenButton();
@@ -146,7 +150,7 @@ const sketch1 = ( s ) => {
         //draw year labels
         for(i=0; i<=yearDifference; i++){
             let t = i+firstYear
-        s.text(t,((lineX+w/100)+(yearLength*i)),lineY+w/35);
+        s.text(t,((lineX+w/20)+(yearLength*i)),lineY+w/38);
         }
     }
 
@@ -164,7 +168,7 @@ const sketch1 = ( s ) => {
             }else if(topic[i] == "APS"){
                 y= yMult*5
             }else if(topic[i] == "ACS+APS"){
-                y=yMult*4.5
+                y= yMult*4.5
             }else if(topic[i] == "Politics"){
                 y = yMult*0.3
             }
@@ -173,10 +177,13 @@ const sketch1 = ( s ) => {
             let colour;
             if(labels[i] == "Labour"){
                 colour = [228,0,59];
+                colour2 = [208,0,39];
             }else if(labels[i] == "Conservative"){
                 colour = [20, 80, 170];
+                colour2 = [10, 60, 150];
             }else{
                 colour = [198, 197, 195];
+                colour2 = [168,167,165];
             }
 
             // plot events
@@ -184,9 +191,29 @@ const sketch1 = ( s ) => {
             let month = Number(months[i]);
             let x = ((year - firstYear)*yearLength) + lineX + (yearLength/12*month);
             let circleSize = w/40
+            let yUpDown;
 
+            // if(yUpDown == h/50 ||
+            //     y == yMult*0.3 ||
+            //     y == yMult*4.5
+            // ){
+            //     yLevel = true;
+            // }else{
+            //     yLevel = false;
+            // }
+            // console.log(yLevel)
+            // if(!yLevel){
+            //     yUpDown = h/50;
+            // }else{
+            //     yUpDown = 0;
+            // }
+
+
+            s.noStroke()
             s.fill(colour);
             s.circle(x,y,circleSize);
+            s.fill(colour2);
+            s.circle(x,y,circleSize/2)
             
             // long events
             let endYear = Number(endYears[i]);
@@ -194,17 +221,23 @@ const sketch1 = ( s ) => {
             let endX = ((endYear - firstYear)*yearLength) + lineX + (yearLength/12*endMonth);
 
             if(endYear){
-            s.fill(colour);
-            s.circle(endX,y,circleSize);
-            s.stroke(colour);
-            s.strokeWeight(w/200)
-            s.line(x,y,endX,y);
+                
+                s.fill(colour);
+                s.circle(endX,y,circleSize);
+                s.fill(colour2);
+                s.circle(endX,y,circleSize/2)
+                s.stroke(colour2);
+                s.strokeWeight(w/200)
+                s.line(x,y,endX,y);
+   
             }
 
             // event text labels
-            s.noStroke();
+            s.stroke(253, 253, 255);
+            s.strokeWeight(w/700);
             s.fill(57, 61, 63);
-            s.text(labels[i], x, y);
+            s.textSize(w/70)
+            s.text(labels[i], x, y,w/40);
 
             // event info box
             let rectWidth = w/5;
@@ -298,7 +331,7 @@ const sketch1 = ( s ) => {
         s.pop(); 
     }
 
-    s.graphPlotting = function(data,r,g,b) {
+    s.graphPlotting = function(data,r,g,b,name) {
 
         for(i=0; i<dataLengthAsylum; i++){
             // CSV values into numbers
@@ -366,10 +399,26 @@ const sketch1 = ( s ) => {
                         s.strokeWeight(w/100)
                         s.stroke(r,g,b);
                         s.line(x,yMap,x2,y2Map);
+                        
                     }       
                 }
-            }
+                
+                let y3 = s.escapeCSV(data[lowesti])*graphMultiplier;
+                let yMap3 = s.map(y3,0,h,h,0);
 
+                s.stroke(253, 253, 255);
+                s.strokeWeight(w/700);
+                s.fill(57, 61, 63);
+                s.textSize(w/50);
+                if(name == "Refusals"){
+                    s.text(name,w/15,yMap3+w/40);
+                }else if(name == "Grants"){
+                    s.text(name,w/15,yMap3-w/80);
+                }else{
+                    s.text(name,w/15,yMap3);
+                }
+
+            }
         }
     }
 
