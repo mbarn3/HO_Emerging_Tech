@@ -51,12 +51,12 @@ h1 {
 }
 
 h2 {
-    color:  #fce071;
-
+    grid-row: 3;
+    color: #393D3F;
     text-align: center;
     /* font-family: 'Arial', sans-serif; */
-    padding: 20px;
-    background-color: #ddd6d2;
+    margin-bottom: 40px;
+    font-size: 1.75rem;
 }
 
 main {

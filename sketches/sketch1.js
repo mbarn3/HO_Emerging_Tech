@@ -48,7 +48,7 @@ const sketch1 = ( s ) => {
     s.setup = async function() {
 
         let smallestSize = s.min(s.windowWidth,s.windowHeight);
-        s.createCanvas(smallestSize/1.1, smallestSize/1.1);
+        s.createCanvas(smallestSize/1, smallestSize/1.1);
         //s.createCanvas(smallestSize, smallestSize);
 
         w = s.width;

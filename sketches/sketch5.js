@@ -108,7 +108,7 @@ s.textSize(12);
 //facial recognion more
 s.text(`Matrix Measured 
 Between Features`, 480, 250);
-s.text(`Comparied to 
+s.text(`Compared to 
 Trained Photo`, 630, 150);
 
 
@@ -153,7 +153,7 @@ s.textSize(12);
 
 //facial age estimation more
 s.text(`Liveness Check`, 290, 450);
-s.text(`Compaired to Data 
+s.text(`Compared to Data 
 of Other Faces`, 540, 350);
 s.text(`Pixel 
 Analysis`, 390, 350);
@@ -162,7 +162,7 @@ Recognition`, 390, 450);
 s.text(`Map Structual 
 Distances`, 540, 450);
 s.text(`Various LLMs Often 
-with Ratial Bias`, 580, 315);
+with Racial Bias`, 580, 315);
 s.text(`Skin Texture`, 500, 490);
 s.text(`Facial 
 Micro-Textures`, 640, 475);
